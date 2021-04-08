@@ -1,0 +1,89 @@
+.tableEmployee {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    thead th {
+      padding: 10px 18px;
+      border-bottom: 1px solid #111;
+      cursor: pointer;
+    }
+    tbody tr:nth-child(odd) {
+      background: #f9f9f9;
+    }
+    tr {
+      border-bottom: 1px solid#dddddd;
+    }
+    td {
+      padding: 8px 10px;
+    }
+    tr:nth-child(odd) td:nth-child(1) {
+      background: #f1f1f1;
+    }
+    tr:nth-child(even) td:nth-child(1) {
+      background: #fafafa;
+    }
+    tbody tr:hover,
+    tbody tr:hover td:nth-child(1) {
+      background: #f1f1f1;
+    }
+  }
+  &__content {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  &__pagination {
+    display: flex;
+  }
+
+  &__columnTitle {
+    display: flex;
+  }
+
+  &__order {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    &.active svg {
+      color: blue;
+    }
+  }
+
+  &__down {
+    position: relative;
+    top: -8px;
+  }
+  &__up,
+  &__down {
+    width: 10px;
+    height: 10px;
+    svg {
+      width: 100%;
+    }
+  }
+}
+
+.paginationTable {
+  display: flex;
+  &__page {
+    &.active {
+      background: green;
+    }
+  }
+}
