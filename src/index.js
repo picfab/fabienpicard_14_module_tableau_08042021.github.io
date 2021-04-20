@@ -98,8 +98,8 @@ export default function Table({ cols, data, perPage, page }) {
             {cols.map((col, i) => <th key={i}>
                                     <div className="tableEmployee__columnTitle" onClick={()=>changeOrder(col.index)}>
                                       {col.label}
-                                      <Order showUp={orderType!==col.index || (orderType===col.index && order==='asc')}
-                                            showDown={orderType!==col.index || (orderType===col.index && order==='desc')}
+                                      <Order showUp={orderType!==col.index || (orderType===col.index && order==='desc')}
+                                            showDown={orderType!==col.index || (orderType===col.index && order==='asc')}
                                         />
                                     </div>
                                   </th>
@@ -116,11 +116,11 @@ export default function Table({ cols, data, perPage, page }) {
       </table>
     </div>
     <div className="tableEmployee__nav">
-          <div>Showing {innerPage * innerPerPage + 1 - innerPerPage} to {innerPage * innerPerPage < data.length ? innerPage * innerPerPage : data.length} of {data.length} entries</div>
+          <div className="tableEmployee__info">Showing {data.length>0?innerPage * innerPerPage + 1 - innerPerPage:0} to {innerPage * innerPerPage < data.length ? innerPage * innerPerPage : data.length} of {data.length} entries</div>
           <div className="tableEmployee__pagination">
-            {innerPage>1&&<div onClick={prev}>Previous</div>}
+            {innerPage>1&&<button onClick={prev} className='prev'>Previous</button>}
             <Pagination length={data.length} page={innerPage} updatePage={setInnerPage} totalPage={totalPage}/>
-            {innerPage < totalPage && <div onClick={next}>Next</div>}
+            {innerPage < totalPage && <button className='next' onClick={next}>Next</button>}
           </div>
     </div>
   </div>

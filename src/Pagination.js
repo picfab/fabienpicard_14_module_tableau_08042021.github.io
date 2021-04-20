@@ -49,7 +49,11 @@ export default function Pagination({length, page, updatePage,totalPage})  {
   return <div className="paginationTable">
     {elements(length, page,totalPage).map((elt,i)=>
       Number.isInteger(elt) ?
-        <button className={`paginationTable__page ${page===elt?'active':''}`} key={i} onClick={()=>updatePage(elt)}>{elt}</button>
+        <button
+          className={`paginationTable__page ${page===elt?'active':''}`}
+          key={i}
+          disabled={page===elt}
+          onClick={()=>updatePage(elt)}>{elt}</button>
       :
         <div key={i}>{elt}</div>
       )}

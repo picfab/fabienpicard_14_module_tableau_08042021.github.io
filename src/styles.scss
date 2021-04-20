@@ -1,3 +1,10 @@
+#nbEntries,
+#searchEntries {
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
 .tableEmployee {
   &__head {
     display: flex;
@@ -5,7 +12,12 @@
   }
   &__nav {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    @media (min-width: 670px) {
+      justify-content: space-between;
+    }
   }
   &__table {
     width: 100%;
@@ -40,7 +52,7 @@
   &__content {
     display: block;
     width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
@@ -51,6 +63,7 @@
 
   &__columnTitle {
     display: flex;
+    justify-content: center;
   }
 
   &__order {
@@ -60,8 +73,16 @@
     justify-content: center;
     align-items: center;
     margin-left: 5px;
-    &.active svg {
-      color: blue;
+    &.active {
+      .tableEmployee__up,
+      .tableEmployee__down {
+        top: -2px;
+        position: relative;
+      }
+
+      svg {
+        color: blue;
+      }
     }
   }
 
@@ -77,13 +98,47 @@
       width: 100%;
     }
   }
+  &__info {
+    margin: 5px 0;
+  }
 }
 
+.tableEmployee__order.active .tableEmployee__up {
+  top: -2px;
+  position: relative;
+}
+
+.prev,
+.next {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  cursor: pointer;
+  color: #333;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: none;
+  &:not(:disabled):hover {
+    color: white !important;
+    border: 1px solid #111;
+    background-color: #585858;
+    background: linear-gradient(to bottom, #585858 0%, #111 100%);
+  }
+}
 .paginationTable {
+  margin: 5px 0;
   display: flex;
+  flex-wrap: wrap;
   &__page {
     &.active {
-      background: green;
+      color: #333;
+      border: 1px solid #979797;
+      background-color: white;
+      background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
     }
+    @extend .next;
   }
 }
