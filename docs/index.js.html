@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import './styles.scss'
+import Pagination from './Pagination'
+import Order from './Order'
+import Select from './Select'
+
+/**
+ * Create a Header for the Transaction view
+ * @module Table
+ * @component
+ * @param {object} props
+ * @prop {array} props.cols Array of obelect with columns's information like : { index:'column-index', label:'the name of column'}
+ * @prop {array} props.data Array of data to show by line
+ * @prop {number} props.perPage Number of element per page. Each key have to correspond with an index to an element of cols's props.
+ * @prop {number} props.page The default page
+ * @example
+ * return (
+ *   &lt;Table
+ *       cols={[
+ *             {
+ *               index: 'firstName',
+ *               label: 'First Name',
+ *             },
+ *             {
+ *               index: 'lastName',
+ *               label: 'Last Name',
+ *             },
+ *             {
+ *               index: 'dateOfBirth',
+ *               label: 'Date of Birth',
+ *             },
+ *             {
+ *               index: 'startDate',
+ *               label: 'Start Date',
+ *             },
+ *             {
+ *               index: 'department',
+ *               label: 'Department',
+ *             },
+ *             {
+ *               index: 'street',
+ *               label: 'Street',
+ *             },
+ *             {
+ *               index: 'city',
+ *               label: 'City',
+ *             },
+ *             {
+ *               index: 'zipCode',
+ *               label: 'Zip Code',
+ *             },
+ *           ]}
+ *       data={[
+ *           {
+ *             firstName: 'aaaaaa',
+ *             lastName: 'bbbbb',
+ *             dateOfBirth: '',
+ *             startDate: '',
+ *             department: 'Sales',
+ *             street: '',
+ *             city: '',
+ *             state: 'AL',
+ *             zipCode: 'ghdfhfdhfdh',
+ *           },
+ *           {
+ *             firstName: 'bbbbb',
+ *             lastName: 'cccccc',
+ *             dateOfBirth: '',
+ *             startDate: '',
+ *             department: 'Sales',
+ *             street: '',
+ *             city: '',
+ *             state: 'AL',
+ *             zipCode: 'ghdfhfdhfdh',
+ *           },
+ *           {
+ *             firstName: 'cccccc',
+ *             lastName: 'dddddd',
+ *             dateOfBirth: '',
+ *             startDate: '',
+ *             department: 'Sales',
+ *             street: '',
+ *             city: '',
+ *             state: 'AL',
+ *             zipCode: 'ghdfhfdhfdh',
+ *           },
+ *         ]}
+ *         perPage={10}
+ *         page={1}
+ *       />
+ * )
+ */
+export default function Table({ cols, data, perPage, page }) {
+  const [innerPage, setInnerPage] = useState(1)
+  const [innerPerPage, setInnerPerPage] = useState(10)
+  const [order, setOrder] = useState('desc')
+  const [orderType, setOrderType] = useState(null)
+  const [search, setSearch] = useState('')
+
+  let totalPage = data.length / innerPerPage
+  totalPage = totalPage &lt; 1 ? 1 : Math.ceil(totalPage)
+
+  useEffect(() => {
+    if (page) {
+      setInnerPage(page)
+    }
+    if (perPage) {
+      setInnerPerPage(perPage)
+    }
+    if (!orderType &amp;&amp; data.length > 0) {
+      setOrderType(cols[0].index)
+    }
+  }, [page, perPage, data])
+
+  const prev = () => setInnerPage(innerPage - 1)
+  const next = () => setInnerPage(innerPage + 1)
+  const searchData = (e) => {
+    setSearch(e.target.value)
+  }
+  const changeOrder = (type) => {
+    if (type !== orderType) {
+      setOrder('asc')
+    } else {
+      setOrder(order === 'asc' ? 'desc' : 'asc')
+    }
+    setOrderType(type)
+  }
+
+  const sortByIndex = (a, b) => {
+    const orderChange = orderType || cols[0].index
+    if (order === 'asc') {
+      // eslint-disable-next-line no-nested-ternary
+      return a[orderChange] &lt; b[orderChange]
+        ? 1
+        : b[orderChange] &lt; a[orderChange]
+        ? -1
+        : 0
+    }
+
+    // eslint-disable-next-line no-nested-ternary
+    return a[orderChange] > b[orderChange]
+      ? 1
+      : b[orderChange] > a[orderChange]
+      ? -1
+      : 0
+  }
+
+  const findEntries = () => {
+    if (search.length > 2) {
+      const find = data.filter((x) => JSON.stringify(x).includes(search))
+      return find
+    }
+    return data
+  }
+
+  const newOrder = findEntries().sort(sortByIndex)
+
+  const showEntries = newOrder.filter(
+    (x, i) =>
+      i >= innerPage * innerPerPage - innerPerPage &amp;&amp;
+      i &lt; innerPage * innerPerPage
+  )
+
+  return (
+    &lt;div className='tableEmployee'>
+      &lt;div className='tableEmployee__head'>
+        &lt;Select value={innerPerPage} onChange={setInnerPerPage} />
+        &lt;div className='tableEmployee__search'>
+          &lt;label htmlFor='searchEntries'>Search:&lt;/label>
+          &lt;input
+            id='searchEntries'
+            placeholder='Search employees'
+            type='text'
+            value={search}
+            onChange={searchData}
+          />
+        &lt;/div>
+      &lt;/div>
+      &lt;div className='tableEmployee__content'>
+        &lt;table className='tableEmployee__table'>
+          &lt;thead>
+            &lt;tr>
+              {cols.map((col) => (
+                &lt;th
+                  key={col.index}
+                  role='button'
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      changeOrder(col.index)
+                    }
+                  }}
+                  onClick={() => changeOrder(col.index)}>
+                  &lt;div className='tableEmployee__columnTitle'>
+                    {col.label}
+                    &lt;Order
+                      showUp={
+                        orderType !== col.index ||
+                        (orderType === col.index &amp;&amp; order === 'desc')
+                      }
+                      showDown={
+                        orderType !== col.index ||
+                        (orderType === col.index &amp;&amp; order === 'asc')
+                      }
+                    />
+                  &lt;/div>
+                &lt;/th>
+              ))}
+            &lt;/tr>
+          &lt;/thead>
+          &lt;tbody>
+            {showEntries.map((ligne, i) => {
+              if (i &lt; innerPerPage) {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  &lt;tr key={i}>
+                    {cols.map((col) => (
+                      &lt;td key={col.index}>{ligne[col.index]}&lt;/td>
+                    ))}
+                  &lt;/tr>
+                )
+              }
+              return null
+            })}
+          &lt;/tbody>
+        &lt;/table>
+      &lt;/div>
+      &lt;div className='tableEmployee__nav'>
+        &lt;div className='tableEmployee__info'>
+          Showing{' '}
+          {data.length > 0 ? innerPage * innerPerPage + 1 - innerPerPage : 0} to{' '}
+          {innerPage * innerPerPage &lt; data.length
+            ? innerPage * innerPerPage
+            : data.length}{' '}
+          of {data.length} entries
+        &lt;/div>
+        &lt;div className='tableEmployee__pagination'>
+          {innerPage > 1 &amp;&amp; (
+            &lt;button type='button' tabIndex={-1} onClick={prev} className='prev'>
+              Previous
+            &lt;/button>
+          )}
+          &lt;Pagination
+            length={data.length}
+            page={innerPage}
+            updatePage={setInnerPage}
+            totalPage={totalPage}
+          />
+          {innerPage &lt; totalPage &amp;&amp; (
+            &lt;button type='button' className='next' onClick={next}>
+              Next
+            &lt;/button>
+          )}
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  )
+}
+
+Table.propTypes = {
+  cols: PropTypes.arrayOf(
+    PropTypes.shape({
+      index: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
+  perPage: PropTypes.number,
+  page: PropTypes.number,
+}
+
+Table.defaultProps = {
+  perPage: 10,
+  page: 1,
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-Table.html">Table</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Apr 22 2021 11:59:25 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

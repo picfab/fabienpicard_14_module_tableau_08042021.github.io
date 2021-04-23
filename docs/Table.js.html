@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: Table.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                     
+                        <h1 class="navbar-item">TableRhnet</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Components</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-Pagination.html">Pagination</a></li><li><a href="module-SelectEntries.html">SelectEntries</a></li><li><a href="module-Table.html">Table</a></li></ul><h3>Global</h3><ul><li><a href="global.html#elements">elements</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>Table.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import Pagination from './Pagination'
+import Order from './Order'
+import SelectEntries from './SelectEntries'
+
+/**
+ * Create a Table of data
+ * @module Table
+ * @component
+ * @param {object} props
+ * @prop {array} props.cols Array of obelect with columns's information like : { index:'column-index', label:'the name of column'}
+ * @prop {array} props.data Array of data to show by line
+ * @prop {number} props.perPage Number of element per page. Each key have to correspond with an index to an element of cols's props.
+ * @prop {number} props.page The default page
+ * @example
+ * return (
+ *   &lt;Table
+ *       cols={[
+ *             {
+ *               index: 'firstName',
+ *               label: 'First Name',
+ *             },
+ *             {
+ *               index: 'lastName',
+ *               label: 'Last Name',
+ *             },
+ *             {
+ *               index: 'dateOfBirth',
+ *               label: 'Date of Birth',
+ *             },
+ *             {
+ *               index: 'startDate',
+ *               label: 'Start Date',
+ *             },
+ *             {
+ *               index: 'department',
+ *               label: 'Department',
+ *             },
+ *             {
+ *               index: 'street',
+ *               label: 'Street',
+ *             },
+ *             {
+ *               index: 'city',
+ *               label: 'City',
+ *             },
+ *             {
+ *               index: 'zipCode',
+ *               label: 'Zip Code',
+ *             },
+ *           ]}
+ *       data={[
+ *           {'firstName':'Fabien',
+ *          'lastName':'Picard',
+ *           'dateOfBirth':'04/15/2021',
+ *           'startDate':'04/15/2021 19:04',
+ *           'department':'AS',
+ *           'street':'2 rue Pen Ar Run',
+ *           'city':'Brest',
+ *           'state':'AL',
+ *           'zipCode':'29200'},
+ *           {'firstName':'Elise',
+ *           'lastName':'Leclercq',
+ *           'dateOfBirth':'04/21/2021',
+ *           'startDate':'04/09/2021 19:05',
+ *           'department':'AL',
+ *           'street':'Zone Aviation Générale  Aéroport Aimé Césaire',
+ *           'city':'Brest',
+ *           'state':'CA',
+ *           'zipCode':'29200'},
+ *           {'firstName':'Elise',
+ *           'lastName':'Leclercq',
+ *           'dateOfBirth':'04/14/2021',
+ *           'startDate':'04/24/2021 19:11',
+ *           'department':'marketing',
+ *           'street':'Zone Aviation Générale  Aéroport Aimé Césaire',
+ *           'city':'LE LAMENTIN',
+ *           'state':'AS',
+ *           'zipCode':'97232'},
+ *           {'firstName':'aaaa',
+ *           'lastName':'zzzz',
+ *           'dateOfBirth':'04/01/2021',
+ *           'startDate':'04/17/2021 19:12',
+ *           'department':'marketing',
+ *           'street':'2 rue Pen Ar Run',
+ *           'city':'Brest',
+ *           'state':'AZ',
+ *           'zipCode':'29200'}
+ *         ]}
+ *         perPage={10}
+ *         page={1}
+ *       />
+ * )
+ */
+export default function Table({ cols, data, perPage, page }) {
+  /**
+   * State
+   */
+  const [innerPage, setInnerPage] = useState(1)
+  const [innerPerPage, setInnerPerPage] = useState(10)
+  const [order, setOrder] = useState('desc')
+  const [orderType, setOrderType] = useState(null)
+  const [search, setSearch] = useState('')
+  /**
+   * variable
+   */
+  let totalPage = data.length / innerPerPage
+  totalPage = totalPage &lt; 1 ? 1 : Math.ceil(totalPage)
+
+  useEffect(() => {
+    if (page) {
+      setInnerPage(page)
+    }
+    if (perPage) {
+      setInnerPerPage(perPage)
+    }
+    if (!orderType &amp;&amp; data.length > 0) {
+      setOrderType(cols[0].index)
+    }
+  }, [page, perPage, data])
+
+  /**
+   * eventListener
+   */
+  const prev = () => setInnerPage(innerPage - 1)
+  const next = () => setInnerPage(innerPage + 1)
+  const searchData = (e) => {
+    setSearch(e.target.value)
+    setInnerPage(1)
+  }
+  const changeOrder = (type) => {
+    if (type !== orderType) {
+      setOrder('asc')
+    } else {
+      setOrder(order === 'asc' ? 'desc' : 'asc')
+    }
+    setOrderType(type)
+  }
+
+  /**
+   * function for modif order
+   */
+  const sortByIndex = (a, b) => {
+    const orderChange = orderType || cols[0].index
+    if (order === 'asc') {
+      // eslint-disable-next-line no-nested-ternary
+      return a[orderChange] &lt; b[orderChange]
+        ? 1
+        : b[orderChange] &lt; a[orderChange]
+        ? -1
+        : 0
+    }
+
+    // eslint-disable-next-line no-nested-ternary
+    return a[orderChange] > b[orderChange]
+      ? 1
+      : b[orderChange] > a[orderChange]
+      ? -1
+      : 0
+  }
+
+  /**
+   * Find entries with search
+   * @return  {array} with entries
+   */
+  const findEntries = () => {
+    if (search.length > 2) {
+      const find = data.filter((x) =>
+        JSON.stringify(x).toLowerCase().includes(search.toLowerCase())
+      )
+      return find
+    }
+    return data
+  }
+
+  /**
+   * Entries ordered
+   */
+  const newOrder = findEntries().sort(sortByIndex)
+
+  /**
+   * filter entries function entries perPage and active page
+   * @return  {array} entries to show
+   */
+  const showEntries = newOrder.filter(
+    (x, i) =>
+      i >= innerPage * innerPerPage - innerPerPage &amp;&amp;
+      i &lt; innerPage * innerPerPage
+  )
+
+  return (
+    &lt;div className='tableEmployee'>
+      &lt;div className='tableEmployee__head'>
+        &lt;SelectEntries value={innerPerPage} onChange={setInnerPerPage} />
+        &lt;div className='tableEmployee__search'>
+          &lt;label htmlFor='searchEntries'>Search:&lt;/label>
+          &lt;input
+            id='searchEntries'
+            placeholder='Search employees'
+            type='text'
+            value={search}
+            onChange={searchData}
+          />
+        &lt;/div>
+      &lt;/div>
+      &lt;div className='tableEmployee__content'>
+        &lt;table className='tableEmployee__table'>
+          &lt;thead>
+            &lt;tr>
+              {cols.map((col) => (
+                &lt;th
+                  key={col.index}
+                  role='button'
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      changeOrder(col.index)
+                    }
+                  }}
+                  onClick={() => changeOrder(col.index)}>
+                  &lt;div className='tableEmployee__columnTitle'>
+                    {col.label}
+                    &lt;Order
+                      showUp={
+                        orderType !== col.index ||
+                        (orderType === col.index &amp;&amp; order === 'desc')
+                      }
+                      showDown={
+                        orderType !== col.index ||
+                        (orderType === col.index &amp;&amp; order === 'asc')
+                      }
+                    />
+                  &lt;/div>
+                &lt;/th>
+              ))}
+            &lt;/tr>
+          &lt;/thead>
+          &lt;tbody>
+            {showEntries.map((ligne, i) => {
+              if (i &lt; innerPerPage) {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  &lt;tr key={i}>
+                    {cols.map((col) => (
+                      &lt;td key={col.index}>{ligne[col.index]}&lt;/td>
+                    ))}
+                  &lt;/tr>
+                )
+              }
+              return null
+            })}
+          &lt;/tbody>
+        &lt;/table>
+      &lt;/div>
+      &lt;div className='tableEmployee__nav'>
+        &lt;div className='tableEmployee__info'>
+          Showing{' '}
+          {data.length > 0 ? innerPage * innerPerPage + 1 - innerPerPage : 0} to{' '}
+          {innerPage * innerPerPage &lt; data.length
+            ? innerPage * innerPerPage
+            : data.length}{' '}
+          of {data.length} entries
+        &lt;/div>
+        &lt;div className='tableEmployee__pagination'>
+          {innerPage > 1 &amp;&amp; (
+            &lt;button type='button' tabIndex={-1} onClick={prev} className='prev'>
+              Previous
+            &lt;/button>
+          )}
+          &lt;Pagination
+            length={data.length}
+            page={innerPage}
+            updatePage={setInnerPage}
+            totalPage={totalPage}
+          />
+          {innerPage &lt; totalPage &amp;&amp; (
+            &lt;button type='button' className='next' onClick={next}>
+              Next
+            &lt;/button>
+          )}
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  )
+}
+
+Table.propTypes = {
+  cols: PropTypes.arrayOf(
+    PropTypes.shape({
+      index: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
+  perPage: PropTypes.number,
+  page: PropTypes.number,
+}
+
+Table.defaultProps = {
+  perPage: 10,
+  page: 1,
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 23 2021 19:56:48 GMT+0200 (heure d’été d’Europe centrale)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

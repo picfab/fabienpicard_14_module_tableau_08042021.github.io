@@ -1,6 +1,6 @@
 {
   "name": "table-hrnet",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,9 @@
     "prepublishOnly": "npm run transpile",
     "build": "webpack --mode production",
     "deploy": "gh-pages -d examples/dist",
-    "publish-demo": "npm run build && npm run deploy"
+    "publish-demo": "npm run build && npm run deploy",
+    "doc": "jsdoc -c jsdoc.json",
+    "doccss": "node-sass --include-path scss ./src/styles.scss ./docs/styles.css"
   },
   "repository": {
     "type": "git",
@@ -23,17 +25,34 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
+    "better-docs": "^1.2.2",
     "css-loader": "^5.2.0",
+    "cssnano": "^5.0.1",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
     "html-webpack-plugin": "^5.3.1",
+    "jsdoc": "^3.6.6",
     "mini-css-extract-plugin": "^1.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "node-sass": "^5.0.0",
+    "postcss": "^8.2.10",
+    "prettier": "^2.2.1",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "webpack": "^5.28.0",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

@@ -3,46 +3,42 @@ import { render } from 'react-dom'
 import MyComponent from '../../src'
 import { users } from './users'
 
-
 function App() {
   const cols = [
     {
       index: 'firstName',
-      label: 'First Name'
+      label: 'First Name',
     },
     {
       index: 'lastName',
-      label: 'Last Name'
+      label: 'Last Name',
     },
     {
       index: 'dateOfBirth',
-      label: 'Date of Birth'
+      label: 'Date of Birth',
     },
     {
       index: 'startDate',
-      label: 'Start Date'
+      label: 'Start Date',
     },
     {
       index: 'department',
-      label: 'Department'
+      label: 'Department',
     },
     {
       index: 'street',
-      label: 'Street'
+      label: 'Street',
     },
     {
       index: 'city',
-      label: 'City'
+      label: 'City',
     },
     {
       index: 'zipCode',
-      label: 'Zip Code'
+      label: 'Zip Code',
     },
-
   ]
 
-  return <MyComponent
-    data={users}
-    cols={cols} />
+  return <MyComponent data={users} cols={cols} page={2} perPage={23} />
 }
-render(<App />, document.getElementById("root"))
+render(<App />, document.getElementById('root'))

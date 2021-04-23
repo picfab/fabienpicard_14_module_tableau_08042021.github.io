@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: Table</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                     
+                        <h1 class="navbar-item">TableRhnet</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Components</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-Pagination.html">Pagination</a></li><li><a href="module-SelectEntries.html">SelectEntries</a></li><li><a href="module-Table.html">Table</a></li></ul><h3>Global</h3><ul><li><a href="global.html#elements">elements</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Components</p>
+                        <h1>Table</h1>
+                    </header>
+                    
+                    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>Table<span class="signature">(props)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <h3 class="title"><span>Constructor</span></h3>
+                <div class="members">
+                    <div class="member">
+
+    
+    <h4 class="name" id="Table">
+        
+        <span class="code-name">
+            new Table<span class="signature">(props)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create a Table of data</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>PropTypes:</h5>
+    
+
+<table class="params">
+  <thead>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Required</th>
+      <th>Description</th>
+      <th class="last">Default</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  
+        <tr class="deep-level-0">
+          <td class="name"><code>cols</code></td>
+          <td>
+            arrayOf
+            
+          </td>
+          <td>Yes</td>
+          <td></td>
+          <td></td>
+        </tr>
+        
+        <tr class="deep-level-1">
+          <td class="name"><code>name</code></td>
+          <td>
+            
+              
+            
+          </td>
+          <td>No</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        
+        <tr class="deep-level-1">
+          <td class="name"><code>value</code></td>
+          <td>
+            
+              
+            
+          </td>
+          <td>No</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        
+  
+        <tr class="deep-level-0">
+          <td class="name"><code>data</code></td>
+          <td>
+            array
+            
+          </td>
+          <td>Yes</td>
+          <td></td>
+          <td></td>
+        </tr>
+        
+  
+        <tr class="deep-level-0">
+          <td class="name"><code>perPage</code></td>
+          <td>
+            number
+            
+          </td>
+          <td>No</td>
+          <td></td>
+          <td>"10"</td>
+        </tr>
+        
+  
+        <tr class="deep-level-0">
+          <td class="name"><code>page</code></td>
+          <td>
+            number
+            
+          </td>
+          <td>No</td>
+          <td></td>
+          <td>"1"</td>
+        </tr>
+        
+  
+  </tbody>
+</table>
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>props.cols</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">array</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Array of obelect with columns's information like : { index:'column-index', label:'the name of column'}</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>props.data</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">array</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Array of data to show by line</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>props.perPage</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Number of element per page. Each key have to correspond with an index to an element of cols's props.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>props.page</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The default page</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Table.js.html" class="button">View Source</a>
+            <span>
+                <a href="Table.js.html">Table.js</a>, <a href="Table.js.html#line8">line 8</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='t2mbpkhwumknum8ht0'></div>
+
+<script>
+  ReactDOM.render(Wrapper({
+    example: "return (\n  <Table\n      cols={[\n            {\n              index: 'firstName',\n              label: 'First Name',\n            },\n            {\n              index: 'lastName',\n              label: 'Last Name',\n            },\n            {\n              index: 'dateOfBirth',\n              label: 'Date of Birth',\n            },\n            {\n              index: 'startDate',\n              label: 'Start Date',\n            },\n            {\n              index: 'department',\n              label: 'Department',\n            },\n            {\n              index: 'street',\n              label: 'Street',\n            },\n            {\n              index: 'city',\n              label: 'City',\n            },\n            {\n              index: 'zipCode',\n              label: 'Zip Code',\n            },\n          ]}\n      data={[\n          {'firstName':'Fabien',\n         'lastName':'Picard',\n          'dateOfBirth':'04/15/2021',\n          'startDate':'04/15/2021 19:04',\n          'department':'AS',\n          'street':'2 rue Pen Ar Run',\n          'city':'Brest',\n          'state':'AL',\n          'zipCode':'29200'},\n          {'firstName':'Elise',\n          'lastName':'Leclercq',\n          'dateOfBirth':'04/21/2021',\n          'startDate':'04/09/2021 19:05',\n          'department':'AL',\n          'street':'Zone Aviation Générale  Aéroport Aimé Césaire',\n          'city':'Brest',\n          'state':'CA',\n          'zipCode':'29200'},\n          {'firstName':'Elise',\n          'lastName':'Leclercq',\n          'dateOfBirth':'04/14/2021',\n          'startDate':'04/24/2021 19:11',\n          'department':'marketing',\n          'street':'Zone Aviation Générale  Aéroport Aimé Césaire',\n          'city':'LE LAMENTIN',\n          'state':'AS',\n          'zipCode':'97232'},\n          {'firstName':'aaaa',\n          'lastName':'zzzz',\n          'dateOfBirth':'04/01/2021',\n          'startDate':'04/17/2021 19:12',\n          'department':'marketing',\n          'street':'2 rue Pen Ar Run',\n          'city':'Brest',\n          'state':'AZ',\n          'zipCode':'29200'}\n        ]}\n        perPage={10}\n        page={1}\n      />\n)",
+    uniqId: "t2mbpkhwumknum8ht0",
+  }), document.getElementById('t2mbpkhwumknum8ht0'));
+</script>
+    
+
+
+</div>
+                </div>
+            </div>
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 23 2021 19:56:48 GMT+0200 (heure d’été d’Europe centrale)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
