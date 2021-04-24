@@ -7,6 +7,8 @@ You can find the component [here](https://www.npmjs.com/package/table-hrnet)
 ## See the demo here
 [demo](https://picfab.github.io/fabienpicard_14_module_tableau_08042021.github.io/)
 
+## install
+``npm i table-hrnet``
 
 ## You want contribute ?
 Download this repository or fork it.
