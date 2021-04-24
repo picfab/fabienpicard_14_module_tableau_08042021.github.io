@@ -15,6 +15,9 @@ Download this repository or fork it.
 After for instal localy you have just to launch :
 ``npm install``
 
+Go to
+``http://localhost:3011/``
+
 ## Find the documentation
 You can find html documentation in folder ``./docs``
 
