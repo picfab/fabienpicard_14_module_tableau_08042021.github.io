@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { up, down } from './svg'
 
 /**
- * Create a Header for the Transaction view
+ * Create a header columns toggle for order
  * @module Order
  * @component
  * @param {object} props

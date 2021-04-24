@@ -35,9 +35,6 @@ export default function SelectEntries({ value, onChange }) {
   )
 }
 SelectEntries.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
 }
