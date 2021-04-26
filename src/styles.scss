@@ -132,6 +132,7 @@
   margin: 5px 0;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   &__page {
     &.active {
       color: #333;
